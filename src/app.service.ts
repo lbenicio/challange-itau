@@ -4,6 +4,7 @@ import { JwtDto } from './dto/jwt.dto';
 @Injectable()
 export class AppService {
   private maxNameLength = 256;
+  private claims = ['Role', 'Seed', 'Name'];
 
   public decodeJWT(token: string): JwtDto {
     const jwt: JwtDto = JSON.parse(
@@ -13,17 +14,32 @@ export class AppService {
   }
 
   public verifyJWT(jwt: JwtDto): void {
+    this.verifyClaims(jwt);
     this.verifyName(jwt.Name);
     this.verifySeed(jwt.Seed);
   }
 
+  private verifyClaims(jwt: JwtDto) {
+    const keys = Object.keys(jwt);
+
+    if (keys.length !== 3) {
+      throw new Error('Token must have exactly 3 claims');
+    } else {
+      keys.forEach((key) => {
+        if (!this.claims.includes(key)) {
+          throw new Error('Tokens must not have claim: ' + key);
+        }
+      });
+    }
+  }
+
   private verifyName(name: string): void {
-    if (this.doNameContainsNumbers(name)) {
-      throw new Error('Name must not contain numbers');
-    } else if (!this.doNamesHaveCorrectLength(name)) {
+    if (!this.doNamesHaveCorrectLength(name)) {
       throw new Error(
         'Name must have between 1 and ' + this.maxNameLength + ' characters',
       );
+    } else if (this.doNameContainsNumbers(name)) {
+      throw new Error('Name must not contain numbers');
     }
   }
 
