@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { JwtDto } from './dto/jwt.dto';
-import { UtilsService } from 'src/utils/utils.service';
+import { UtilsService } from '../utils/utils.service';
 
 @Injectable()
 export class AppService {
+  private maxNameLength = 256;
   private claims = ['Role', 'Seed', 'Name'];
 
   constructor(private readonly utilsService: UtilsService) {}
@@ -36,9 +37,17 @@ export class AppService {
   }
 
   private verifyName(name: string): void {
-    if (this.utilsService.containsNumbers(name)) {
+    if (!this.doNamesHaveCorrectLength(name)) {
+      throw new Error(
+        'Name must have between 1 and ' + this.maxNameLength + ' characters',
+      );
+    } else if (this.utilsService.containsNumbers(name)) {
       throw new Error('Name must not contain numbers');
     }
+  }
+
+  private doNamesHaveCorrectLength(name: string): boolean {
+    return name.length > 0 && name.length < this.maxNameLength;
   }
 
   private verifySeed(seed: number): void {
