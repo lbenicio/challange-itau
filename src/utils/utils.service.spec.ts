@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UtilsService } from './utils.service';
+import { LoggerModule } from 'nestjs-pino';
 
 describe('UtilsService', () => {
   let service: UtilsService;
@@ -8,6 +9,7 @@ describe('UtilsService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [UtilsService],
       exports: [UtilsService],
+      imports: [LoggerModule.forRoot({})],
     }).compile();
 
     service = module.get<UtilsService>(UtilsService);

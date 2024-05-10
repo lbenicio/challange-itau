@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppService } from './app.service';
 import { UtilsModule } from '../utils/utils.module';
 import { JwtDto } from './dto/jwt.dto';
+import { LoggerModule } from 'nestjs-pino';
 
 describe('AppService', () => {
   let service: AppService;
@@ -9,7 +10,7 @@ describe('AppService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [AppService],
-      imports: [UtilsModule],
+      imports: [UtilsModule, LoggerModule.forRoot({})],
     }).compile();
 
     service = module.get<AppService>(AppService);

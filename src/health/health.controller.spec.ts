@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { HealthController } from './health.controller';
 import { HttpModule } from '@nestjs/axios';
 import { TerminusModule } from '@nestjs/terminus';
+import { LoggerModule } from 'nestjs-pino';
 
 describe('HealthController', () => {
   let controller: HealthController;
@@ -9,7 +10,7 @@ describe('HealthController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [HealthController],
-      imports: [TerminusModule, HttpModule],
+      imports: [TerminusModule, HttpModule, LoggerModule.forRoot({})],
     }).compile();
 
     controller = module.get<HealthController>(HealthController);
