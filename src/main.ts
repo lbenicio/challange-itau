@@ -1,8 +1,31 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { AppModule } from './app/app.module';
+import { Logger } from 'nestjs-pino';
+import { ConfigService } from '@nestjs/config';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import helmet from 'helmet';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  const configService = app.get(ConfigService);
+
+  const logger: Logger = await app.resolve(Logger);
+  app.useLogger(logger);
+
+  const config = new DocumentBuilder()
+    .setTitle('App documentation')
+    .setDescription('The application API description')
+    .setVersion('0.0')
+    .addTag('application')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
+
+  app.use(helmet());
+
+  const port: number = configService.get<number>('app.port');
+
+  logger.log(`Application is running on port ${port}`);
+  await app.listen(port);
 }
 bootstrap();
