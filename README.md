@@ -73,8 +73,16 @@ docker compose up
 
 ## Como rodar os testes
 
+1. Para rodar os testes unitários
+
 ```bash
-npm run test
+npm run test:unit
+```
+
+2. Para rodar os testes de integração
+
+```bash
+npm run test:e2e
 ```
 
 ## Variaveis de ambiente
