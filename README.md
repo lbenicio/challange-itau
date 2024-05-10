@@ -8,6 +8,17 @@ Projeto utilizando NestJS para criar um sistema de verificação de json web tok
 - NestJS
 - Jest
 - Docker
+- Terraform
+- AWS
+
+## Decisões de projeto
+
+- Documentação automatizada utilizando swagger
+- class-validator para validação de dados com decorators
+- pino-http para logar requisições
+- helmet para segurança
+- Docker para containerização da aplicação
+- Terraform para deploy na AWS
 
 ## Como rodar o projeto
 
