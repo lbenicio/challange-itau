@@ -1,12 +1,20 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { AppService } from './app.service';
+import { JwtDto } from './dto/jwt.dto';
 
-@Controller()
+@Controller('verify')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('jwt')
+  verifyJWT(@Param('jwt') jwt: JwtDto): string {
+    try {
+      this.appService.verifyJWT(jwt);
+
+      return 'verdadeiro';
+    } catch (error) {
+      console.error(error);
+      return 'falso';
+    }
   }
 }
