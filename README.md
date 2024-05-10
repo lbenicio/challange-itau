@@ -21,6 +21,20 @@ Projeto utilizando NestJS para criar um sistema de verificação de json web tok
 - Terraform para deploy na AWS
 - Adicionado endpoint /helth para verificar se a aplicação está rodando
 
+## Endpoints
+
+### GET /verify/jwt?token=token
+
+Verifica se o token é válido
+
+### GET /health/check
+
+Return healthcheck da aplicação
+
+### GET /health/ping
+
+Return pong
+
 ## Como rodar o projeto
 
 ### Bare Metal

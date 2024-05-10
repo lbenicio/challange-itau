@@ -12,7 +12,7 @@ export class HealthController {
     private readonly http: HttpHealthIndicator,
   ) {}
 
-  @Get()
+  @Get('check')
   @HealthCheck()
   check() {
     return this.health.check([
@@ -20,7 +20,7 @@ export class HealthController {
     ]);
   }
 
-  @Get()
+  @Get('ping')
   ping() {
     return 'pong';
   }
