@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+  wartools-back:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    restart: always
+    environment:
+      PORT: ${PORT:-3001}
+      LOG_LEVEL: ${LOG_LEVEL:-debug}
+    ports:
+      - 3001:3001
+    volumes:
+      - .:/app

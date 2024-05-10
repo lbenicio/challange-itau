@@ -1,0 +1,21 @@
+# Base
+FROM node:latest as base
+# in this case, Red Hat's ubi8 s2i images use dnf, which must be run as root
+USER root
+RUN apt update -y && apt upgrade -y
+
+# Create app directory
+WORKDIR /app
+
+FROM base AS dev
+
+# Bundle app source
+COPY . .
+
+# Install app dependencies
+RUN npm install
+
+# Expose por 3001 to TCP connections
+EXPOSE 3001
+
+CMD ["npm", "run", "start:dev"]
