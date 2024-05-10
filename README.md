@@ -19,6 +19,7 @@ Projeto utilizando NestJS para criar um sistema de verificação de json web tok
 - helmet para segurança
 - Docker para containerização da aplicação
 - Terraform para deploy na AWS
+- Adicionado endpoint /helth para verificar se a aplicação está rodando
 
 ## Como rodar o projeto
 
