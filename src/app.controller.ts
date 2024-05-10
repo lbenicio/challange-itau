@@ -7,8 +7,9 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get('jwt')
-  verifyJWT(@Param('jwt') jwt: JwtDto): string {
+  verifyJWT(@Param('jwt') token: string): string {
     try {
+      const jwt: JwtDto = this.appService.decodeJWT(token);
       this.appService.verifyJWT(jwt);
 
       return 'verdadeiro';

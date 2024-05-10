@@ -5,6 +5,13 @@ import { JwtDto } from './dto/jwt.dto';
 export class AppService {
   private maxNameLength = 256;
 
+  public decodeJWT(token: string): JwtDto {
+    const jwt: JwtDto = JSON.parse(
+      Buffer.from(token.split('.')[1], 'base64').toString(),
+    );
+    return jwt;
+  }
+
   public verifyJWT(jwt: JwtDto): void {
     this.verifyName(jwt.Name);
     this.verifySeed(jwt.Seed);
