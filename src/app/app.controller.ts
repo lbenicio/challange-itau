@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { JwtDto } from './dto/jwt.dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -13,7 +13,7 @@ export class AppController {
   @ApiResponse({ status: 400, description: 'Error de entrada do usuario.' })
   @ApiResponse({ status: 500, description: 'Error no servidor.' })
   @Get('jwt')
-  verifyJWT(@Param('token') token: string): string {
+  verifyJWT(@Query('token') token: string): string {
     try {
       const jwt: JwtDto = this.appService.decodeJWT(token);
       this.appService.verifyJWT(jwt);
