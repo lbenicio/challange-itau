@@ -21,6 +21,7 @@ Projeto utilizando NestJS para criar um sistema de verificação de json web tok
 - Terraform para deploy na AWS
 - Adicionado endpoint /helth para verificar se a aplicação está rodando
 - Usando class-transformer para transformar os dados de entrada
+- Github Actions para CI/CD
 
 ## Endpoints
 
@@ -97,3 +98,33 @@ LOG_MODULE | Quais modulos irão logar | *
 ## Deploy na AWS
 
 O projeto está configurado para fazer deploy na AWS utilizando Terraform. Para isso, é necessário configurar as variáveis de ambiente `AWS_ACCESS_KEY_ID` e `AWS_SECRET_ACCESS_KEY`.
+
+O deploy é feito através do Github Actions, que roda o script `cicd.yaml` e faz os testes e deplois o deploy na AWS.
+
+## Terraform
+
+Os scripts do terraform estão no diretório `terraform`. O terraform irá criar um cluster do tipo Fargate ECS na AWS. Irá configurar os logs no CloudWatch e irá criar um load balancer para a expor a aplicação.
+
+Para configurar o terraform é necessário criar um arquivo `terraform.tfvars` com as seguintes variáveis:
+
+```terraform
+aws_access_key = "AWS_ACCESS_KEY"
+aws_secret_key = "AWS_SECRET_KEY"
+aws_region = "us-east-1"
+```
+
+Para configurar o cluster do Fargate é necessário editar o arquivo `variables.tf`. Nele é possível configurar o nome do cluster, o nome do serviço, a porta onde a aplicação irá rodar e a imagem do container. Todas as configurações estão no arquivo `variables.tf`.
+
+Para configura o Fargate cluster no AWS é necessário rodar os seguintes comandos:
+
+```bash
+terraform init
+```
+
+```bash
+terraform plan
+```
+
+```bash
+terraform apply
+```
