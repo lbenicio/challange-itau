@@ -37,7 +37,7 @@ COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/prisma ./prisma
 
 # Expose por 3001 to TCP connections
-EXPOSE 3001
+EXPOSE 3000
 
 # Use the default user from the image (instead of the root user)
 USER 1001

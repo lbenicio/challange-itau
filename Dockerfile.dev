@@ -16,6 +16,6 @@ COPY . .
 RUN npm install
 
 # Expose por 3001 to TCP connections
-EXPOSE 3001
+EXPOSE 3000
 
 CMD ["npm", "run", "start:dev"]

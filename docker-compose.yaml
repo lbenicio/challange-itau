@@ -6,10 +6,10 @@ services:
       dockerfile: Dockerfile.dev
     restart: always
     environment:
-      PORT: ${PORT:-3001}
+      PORT: ${PORT:-3000}
       LOG_LEVEL: ${LOG_LEVEL:-debug}
       NODE_ENV: ${NODE_ENV:-development}
     ports:
-      - 3001:3001
+      - 3000:3000
     volumes:
       - .:/app
