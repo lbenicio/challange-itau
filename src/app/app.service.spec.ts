@@ -44,7 +44,7 @@ describe('AppService', () => {
     try {
       service.decodeJWT(token);
     } catch (error) {
-      const isInvalidJson = error.message.indexOf('is not valid JSON') > -1;
+      const isInvalidJson = error.message.indexOf('Unexpected token') > -1;
       expect(isInvalidJson).toBe(true);
     }
   });
