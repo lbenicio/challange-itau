@@ -23,6 +23,24 @@ Projeto utilizando NestJS para criar um sistema de verificação de json web tok
 - Usando class-transformer para transformar os dados de entrada
 - Github Actions para CI/CD
 
+## Swagger
+
+A documentação da API está disponível em `/docs`. Para acessar a documentação, basta rodar o projeto e acessar a url `http://localhost:3000/docs`.
+
+## Testes Manuais
+
+Para testar a aplicação, é necessário utilizar o endpoint `/verify/jwt?token=token`. O token é um token JWT que será verificado. O token pode ser gerado em qualquer site que gere tokens JWT.
+
+Existem coleções do Insonmia no diretório `collections` que podem ser importadas para testar a aplicação.
+
+## Monitoramento
+
+Os logs da aplicação são enviados para o CloudWatch. Para acessar os logs, basta acessar o console da AWS e procurar pelo CloudWatch.
+
+Para monitorar a saúde da aplicação, é possível acessar o endpoint `/health/check` que irá retornar um JSON com o status da aplicação ou `/health/check` que retornar com um `pong`. O processo tambem é feito automaticamento pelo cluster Fargate e o Load Balancer. Assim que um dos containers é marcado como não saudavel pelo balanceador de carga, ele é substituido automaticamente.
+
+Além disso, os scripts do terraform também configuram o Container Insignts para monitorar a aplicação.
+
 ## Endpoints
 
 ### GET /verify/jwt?token=token

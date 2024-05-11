@@ -5,6 +5,7 @@
     "cpu": ${fargate_cpu},
     "memory": ${fargate_memory},
     "networkMode": "awsvpc",
+    "containerInsights": true,
     "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
