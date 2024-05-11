@@ -89,11 +89,12 @@ npm run test:e2e
 
 ## Variaveis de ambiente
 
-VARIAVEL | DESCRIÇÃO | DEFAULT
-PORT | Porta onde o servidor irá rodar | 3000
-NODE_ENV | Ambiente de execução | development
-LOG_LEVEL | Nível de log | debug
-LOG_MODULE | Quais modulos irão logar | *
+| VARIAVEL   | DESCRIÇÃO                       | DEFAULT     |
+|------------|---------------------------------|-------------|
+| PORT       | Porta onde o servidor irá rodar | 3000        |
+| NODE_ENV   | Ambiente de execução            | development |
+| LOG_LEVEL  | Nível de log                    | debug       |
+| LOG_MODULE | Quais modulos irão logar        | *           |
 
 ## Deploy na AWS
 
