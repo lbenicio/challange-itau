@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsNotEmpty, MaxLength } from 'class-validator';
+import { IsInt, IsNotEmpty, MaxLength, IsAlpha } from 'class-validator';
 
 type Role = 'Admin' | 'Member' | 'External';
 const maxLength = 256;
@@ -9,6 +9,7 @@ export class JwtDto {
     required: true,
   })
   @IsNotEmpty()
+  @IsAlpha()
   @MaxLength(maxLength)
   Name: string;
 

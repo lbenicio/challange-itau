@@ -4,6 +4,7 @@ import { Logger } from 'nestjs-pino';
 import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -22,6 +23,8 @@ async function bootstrap() {
   SwaggerModule.setup('docs', app, document);
 
   app.use(helmet());
+
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
   const port: number = configService.get<number>('app.port');
 
