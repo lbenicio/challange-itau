@@ -20,7 +20,8 @@ export class AppService {
   }
 
   public async verifyJWT(jwt: JwtDto): Promise<void> {
-    const errors: ValidationError[] = await validate(new JwtDto(jwt), {
+    jwt = new JwtDto(jwt);
+    const errors: ValidationError[] = await validate(jwt, {
       whitelist: true,
       forbidNonWhitelisted: true,
     });
@@ -34,7 +35,7 @@ export class AppService {
       this.loggerService.error('validation succeed');
     }
 
-    this.verifySeed(jwt.Seed);
+    this.verifySeed(jwt.getSeed());
   }
 
   private verifySeed(seed: number): void {

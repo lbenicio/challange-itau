@@ -19,14 +19,14 @@ export class JwtDto {
   @IsNotEmpty()
   @Matches(/^[A-Za-z ]+$/)
   @MaxLength(maxLength)
-  Name: string;
+  private Name: string;
 
   @ApiProperty({
     example: 'Admin | Member | External',
     required: true,
   })
   @IsNotEmpty()
-  Role: Role;
+  private Role: Role;
 
   @ApiProperty({
     example: '72341',
@@ -34,5 +34,17 @@ export class JwtDto {
   })
   @IsInt()
   @IsNotEmpty()
-  Seed: number;
+  private Seed: number;
+
+  public getName(): string {
+    return this.Name;
+  }
+
+  public getRole(): Role {
+    return this.Role;
+  }
+
+  public getSeed(): number {
+    return this.Seed;
+  }
 }
