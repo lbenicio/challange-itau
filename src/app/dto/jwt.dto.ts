@@ -47,4 +47,16 @@ export class JwtDto {
   public getSeed(): number {
     return this.Seed;
   }
+
+  public setName(Name: string): void {
+    this.Name = Name;
+  }
+
+  public setRole(Role: Role): void {
+    this.Role = Role;
+  }
+
+  public setSeed(Seed: number): void {
+    this.Seed = Seed;
+  }
 }
