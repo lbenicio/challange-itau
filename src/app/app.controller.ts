@@ -17,12 +17,12 @@ export class AppController {
   @ApiResponse({ status: 400, description: 'Error de entrada do usuario.' })
   @ApiResponse({ status: 500, description: 'Error no servidor.' })
   @Get('jwt')
-  verifyJWT(@Query('token') token: string): string {
+  async verifyJWT(@Query('token') token: string): Promise<string> {
     try {
       this.loggerService.info(`Token: ${token}`);
-
       const jwt: JwtDto = this.appService.decodeJWT(token);
-      this.appService.verifyJWT(jwt);
+
+      await this.appService.verifyJWT(jwt);
 
       return 'verdadeiro';
     } catch (error) {

@@ -20,11 +20,11 @@ describe('AppService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should execute correctly given a correct jwt', () => {
+  it('should execute correctly given a correct jwt', async () => {
     const token =
       'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJTZWVkIjoiNzg0MSIsIk5hbWUiOiJUb25pbmhvIEFyYXVqbyJ9.QY05sIjtrcJnP533kQNk8QXcaleJ1Q01jWY_ZzIZuAg';
     const jwt: JwtDto = service.decodeJWT(token);
-    expect(service.verifyJWT(jwt)).toBe(void 0);
+    expect(await service.verifyJWT(jwt)).toBe(void 0);
   });
 
   it('should decode jwt given a correct token', () => {

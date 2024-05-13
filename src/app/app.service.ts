@@ -2,12 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { JwtDto } from './dto/jwt.dto';
 import { UtilsService } from '../utils/utils.service';
 import { PinoLogger } from 'nestjs-pino';
+import { ValidationError, validate } from 'class-validator';
 
 @Injectable()
 export class AppService {
-  private maxNameLength = 256;
-  private claims = ['Role', 'Seed', 'Name'];
-
   constructor(
     private readonly utilsService: UtilsService,
     private readonly loggerService: PinoLogger,
@@ -21,42 +19,22 @@ export class AppService {
     return jwt;
   }
 
-  public verifyJWT(jwt: JwtDto): void {
-    this.verifyClaims(jwt);
-    this.verifyName(jwt.Name);
-    this.verifySeed(jwt.Seed);
-  }
+  public async verifyJWT(jwt: JwtDto): Promise<void> {
+    const errors: ValidationError[] = await validate(new JwtDto(jwt), {
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    });
 
-  private verifyClaims(jwt: JwtDto): void {
-    const keys = Object.keys(jwt);
-    this.loggerService.debug(`keys: ${keys}`);
-
-    if (keys.length !== 3) {
-      throw new Error('Token must have exactly 3 claims');
+    // errors is an array of validation errors
+    if (errors.length > 0) {
+      const msgs: string = errors.toString();
+      this.loggerService.error('validation failed. errors: ', errors);
+      throw new Error(msgs);
     } else {
-      keys.forEach((key) => {
-        if (!this.claims.includes(key)) {
-          throw new Error('Tokens must not have claim: ' + key);
-        }
-      });
+      this.loggerService.error('validation succeed');
     }
-  }
 
-  private verifyName(name: string): void {
-    this.loggerService.debug(`name: ${name}`);
-    if (!this.doNamesHaveCorrectLength(name)) {
-      throw new Error(
-        'Name must have between 1 and ' + this.maxNameLength + ' characters',
-      );
-    } else if (this.utilsService.containsNumbers(name)) {
-      throw new Error('Name must not contain numbers');
-    }
-  }
-
-  private doNamesHaveCorrectLength(name: string): boolean {
-    this.loggerService.debug(`name: ${name}`);
-    this.loggerService.debug(`name.length: ${name.length}`);
-    return name.length > 0 && name.length < this.maxNameLength;
+    this.verifySeed(jwt.Seed);
   }
 
   private verifySeed(seed: number): void {
