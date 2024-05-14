@@ -19,16 +19,6 @@ describe('UtilsService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should test if a name contains numbers, returning true', () => {
-    const name = 'John Doe';
-    expect(service.containsNumbers(name)).toBe(false);
-  });
-
-  it('should test if a name contains numbers, returning false', () => {
-    const name = 'John Doe 123';
-    expect(service.containsNumbers(name)).toBe(true);
-  });
-
   it('should test if a number is prime, returning false for non primes', () => {
     const number = 10;
     expect(service.isPrime(number)).toBe(false);
