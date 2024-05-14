@@ -12,15 +12,14 @@ export class AppService {
   ) {}
 
   public decodeJWT(token: string): JwtDto {
-    const jwt: JwtDto = JSON.parse(
-      Buffer.from(token.split('.')[1], 'base64').toString(),
+    const jwt: JwtDto = new JwtDto(
+      JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString()),
     );
     this.loggerService.debug(`JWT: ${jwt}`);
     return jwt;
   }
 
   public async verifyJWT(jwt: JwtDto): Promise<void> {
-    jwt = new JwtDto(jwt);
     const errors: ValidationError[] = await validate(jwt, {
       whitelist: true,
       forbidNonWhitelisted: true,

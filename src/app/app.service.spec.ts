@@ -32,7 +32,7 @@ describe('AppService', () => {
       'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJTZWVkIjoiNzg0MSIsIk5hbWUiOiJUb25pbmhvIEFyYXVqbyJ9.QY05sIjtrcJnP533kQNk8QXcaleJ1Q01jWY_ZzIZuAg';
     const jwt = JSON.stringify({
       Role: 'Admin',
-      Seed: '7841',
+      Seed: 7841,
       Name: 'Toninho Araujo',
     });
     expect(JSON.stringify(service.decodeJWT(token))).toBe(jwt);
